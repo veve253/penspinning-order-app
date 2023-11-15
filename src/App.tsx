@@ -1,12 +1,12 @@
-import { useState } from "react";
 import "./App.css";
+import Header from "./containers/header";
+import TrickList from "./containers/trickList";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div></div>
+      <Header />
+      <TrickList />
     </>
   );
 }

@@ -1,7 +1,5 @@
-import React from "react";
-
-const trickList = () => {
+const TrickList = () => {
   return <div>trickList</div>;
 };
 
-export default trickList;
+export default TrickList;
