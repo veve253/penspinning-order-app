@@ -1,4 +1,3 @@
-import firebase from "firebase/app";
 import { User } from "firebase/auth";
 
 // useAuthState の戻り値の型定義

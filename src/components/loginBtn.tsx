@@ -1,7 +1,9 @@
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../utils/firebase";
+import { useAuthContext } from "../contexts/AuthContexts";
 
 const LoginBtn = () => {
+  const { user } = useAuthContext();
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
     console.log(result);
@@ -9,10 +11,10 @@ const LoginBtn = () => {
 
   return (
     <button
-      onClick={signInWithGoogle}
+      onClick={user ? () => signOut(auth) : signInWithGoogle}
       className="rounded-md py-1 px-2 bg-sky-200 cursor-pointer hover:bg-sky-500 hover:text-white"
     >
-      ログイン
+      {user ? "ログアウト" : "ログイン"}
     </button>
   );
 };

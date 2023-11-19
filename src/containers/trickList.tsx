@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useAuthContext } from "../contexts/AuthContexts";
 
 const TrickList = () => {
