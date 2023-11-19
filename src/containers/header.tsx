@@ -1,4 +1,4 @@
-import LoginBtn from "../components/loginBtn";
+import LoginBtn from "../components/LoginBtn";
 
 const Header = () => {
   return (
