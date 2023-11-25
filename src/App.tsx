@@ -1,13 +1,13 @@
 import "./App.css";
 import Header from "./containers/Header";
-import TrickList from "./containers/TrickList";
+import MainPart from "./containers/MainPart";
 import { AuthProvider } from "./contexts/AuthContexts";
 
 function App() {
   return (
     <AuthProvider>
       <Header />
-      <TrickList />
+      <MainPart />
     </AuthProvider>
   );
 }
