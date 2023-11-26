@@ -1,20 +1,21 @@
 import React, { useRef } from "react";
 
-const TrickForm: React.FC = () => {
+const TrickForm: React.FC<{ addTrick: (trick: string) => void }> = ({
+  addTrick,
+}) => {
   const trickRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddTrick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (trickRef.current) {
       const trick = trickRef.current.value;
-      console.log(trick); // ここでタスクを処理する
-      // Firebaseにタスクを追加する処理を記述
+      addTrick(trick);
       trickRef.current.value = ""; // フォームをクリア
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex justify-center mt-8">
+    <form onSubmit={handleAddTrick} className="flex justify-center mt-8">
       <input
         type="text"
         ref={trickRef}
