@@ -17,8 +17,6 @@ const useTrick = () => {
   };
 
   const removeTrick = (index: number) => {
-    console.log(index);
-
     const newTrickList = trickList.filter((trick) => {
       return trick.index != index;
     });
@@ -28,7 +26,16 @@ const useTrick = () => {
     setTrickList(newTrickList);
   };
 
-  return { trickList, addTrick, removeTrick };
+  const updateTrick = (index: number, newTrick: string) => {
+    const newTrickList: Trick[] = [...trickList];
+    const targetTrick: Trick | undefined = newTrickList.find(
+      (trick) => trick.index === index
+    );
+    targetTrick && (targetTrick.trick = newTrick);
+    setTrickList(newTrickList);
+  };
+
+  return { trickList, addTrick, removeTrick, updateTrick };
 };
 
 export default useTrick;
