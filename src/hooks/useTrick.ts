@@ -35,6 +35,8 @@ const useTrick = () => {
     setTrickList(newTrickList);
   };
 
+  console.log(trickList);
+
   return { trickList, addTrick, removeTrick, updateTrick };
 };
 
