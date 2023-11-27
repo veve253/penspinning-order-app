@@ -17,9 +17,13 @@ const useTrick = () => {
   };
 
   const removeTrick = (index: number) => {
+    console.log(index);
+
     const newTrickList = trickList.filter((trick) => {
-      trick.index !== index;
+      return trick.index != index;
     });
+
+    console.log(newTrickList);
 
     setTrickList(newTrickList);
   };

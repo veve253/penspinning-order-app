@@ -20,7 +20,7 @@ const TrickForm: React.FC<{ addTrick: (trick: string) => void }> = ({
         type="text"
         ref={trickRef}
         className="border rounded p-2 mr-2 w-2/3"
-        placeholder="タスクを入力"
+        placeholder="技を入力"
       />
       <button
         type="submit"
