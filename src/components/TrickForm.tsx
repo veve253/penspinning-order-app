@@ -15,7 +15,7 @@ const TrickForm: React.FC<{ addTrick: (trick: string) => void }> = ({
   };
 
   return (
-    <form onSubmit={handleAddTrick} className="flex justify-center mt-8">
+    <form onSubmit={handleAddTrick} className="flex justify-center">
       <input
         type="text"
         ref={trickRef}
