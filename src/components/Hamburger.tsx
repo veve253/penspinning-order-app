@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useState } from "react";
 
-const Hamburger: React.FC = ({ isOpen, setIsOpen }) => {
+const Hamburger: FC<{
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}> = ({ isOpen, setIsOpen }) => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };

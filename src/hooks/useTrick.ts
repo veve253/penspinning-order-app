@@ -21,8 +21,6 @@ const useTrick = () => {
       return trick.index != index;
     });
 
-    console.log(newTrickList);
-
     setTrickList(newTrickList);
   };
 
@@ -34,8 +32,6 @@ const useTrick = () => {
     targetTrick && (targetTrick.trick = newTrick);
     setTrickList(newTrickList);
   };
-
-  console.log(trickList);
 
   return { trickList, addTrick, removeTrick, updateTrick };
 };

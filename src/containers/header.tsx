@@ -1,7 +1,11 @@
 import LogInOutBtn from "../components/LogInOutBtn";
 import Hamburger from "../components/Hamburger";
+import { Dispatch, FC, SetStateAction } from "react";
 
-const Header = ({ isOpen, setIsOpen }) => {
+const Header: FC<{
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}> = ({ isOpen, setIsOpen }) => {
   return (
     <header>
       <div className="border-b py-3 flex items-center">

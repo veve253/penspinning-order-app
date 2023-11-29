@@ -1,6 +1,9 @@
-import React from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
-const FSMenu = ({ isOpen, setIsOpen }) => {
+const FSMenu: FC<{
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}> = ({ isOpen, setIsOpen }) => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -10,7 +13,7 @@ const FSMenu = ({ isOpen, setIsOpen }) => {
       <div
         className={`absolute inset-0 left-0 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition duration-300 ease-in-out bg-white w-2/3 h-full shadow-md z-10
+        } transition duration-200 ease-in-out bg-white w-2/3 h-full shadow-md z-10
         overflow-scroll pt-3 flex flex-col`}
       >
         {/* メニュー内容をここに入れる */}
