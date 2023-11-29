@@ -1,12 +1,58 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { db } from "../utils/firebase";
+import { useAuthContext } from "../contexts/AuthContexts";
+
+type FSType = {
+  id: string;
+  name: string;
+  index: number;
+};
 
 const FSMenu: FC<{
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
+  const { user } = useAuthContext();
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const [FSs, setFSs] = useState<FSType[]>([]);
+
+  useEffect(() => {
+    const fetchFSs = async () => {
+      if (user) {
+        const FSCollectionRef = collection(db, "FSs");
+        const q = query(
+          FSCollectionRef,
+          where("userId", "==", user.uid),
+          orderBy("index")
+        );
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const newFS: FSType[] = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            name: doc.data().name,
+            index: doc.data().index,
+          }));
+          setFSs(newFS);
+        });
+
+        // メモリリークを防ぐ？
+        return () => {
+          unsubscribe();
+        };
+      }
+    };
+    fetchFSs();
+  }, [user]);
 
   return (
     <>
@@ -22,21 +68,14 @@ const FSMenu: FC<{
           <h1>New FS</h1>
         </div>
         <ul className="w-full mt-4">
-          <li className="p-2 border-b cursor-pointer hover:bg-slate-300">
-            FS1
-          </li>
-          <li className="p-2 border-b cursor-pointer hover:bg-slate-300">
-            Japen 4th kuzu copy
-          </li>
-          <li className="p-2 border-b cursor-pointer hover:bg-slate-300">
-            Japen 提出用
-          </li>
-          <li className="p-2 border-b cursor-pointer hover:bg-slate-300">
-            Twitterに載せたい
-          </li>
-          <li className="p-2 border-b cursor-pointer hover:bg-slate-300">
-            立ち回し用
-          </li>
+          {FSs.map((FS) => (
+            <li
+              className="p-2 border-b cursor-pointer hover:bg-slate-300"
+              key={FS.id}
+            >
+              {FS.name}
+            </li>
+          ))}
         </ul>
       </div>
       {isOpen && (
