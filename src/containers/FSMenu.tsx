@@ -1,57 +1,20 @@
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { db } from "../utils/firebase";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useAuthContext } from "../contexts/AuthContexts";
-
-type FSType = {
-  id: string;
-  name: string;
-  index: number;
-};
+import useFS from "../hooks/useFS";
 
 const FSMenu: FC<{
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
+  const { FSs, readFSs } = useFS();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const [FSs, setFSs] = useState<FSType[]>([]);
-
   useEffect(() => {
-    const fetchFSs = async () => {
-      if (user) {
-        const FSCollectionRef = collection(db, "FSs");
-        const q = query(
-          FSCollectionRef,
-          where("userId", "==", user.uid),
-          orderBy("index")
-        );
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-          const newFS: FSType[] = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().name,
-            index: doc.data().index,
-          }));
-          setFSs(newFS);
-        });
-
-        // メモリリークを防ぐ？
-        return () => {
-          unsubscribe();
-        };
-      }
-    };
-    fetchFSs();
+    readFSs();
   }, [user]);
 
   return (
