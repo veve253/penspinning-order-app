@@ -10,8 +10,6 @@ const AuthContext = createContext<AuthState>({
   error: undefined,
 });
 
-export const useAuth = () => useContext(AuthContext);
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {

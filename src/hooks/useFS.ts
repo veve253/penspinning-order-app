@@ -8,17 +8,13 @@ import {
 import { useState } from "react";
 import { db } from "../utils/firebase";
 import { useAuthContext } from "../contexts/AuthContexts";
-
-type FSType = {
-  id: string;
-  name: string;
-  index: number;
-};
+import { FSMenuType } from "../types/FSType";
 
 const useFS = () => {
-  const [FSs, setFSs] = useState<FSType[]>([]);
+  const [FSs, setFSs] = useState<FSMenuType>([]);
   const { user } = useAuthContext();
 
+  // 全FSの読み込み
   const readFSs = async () => {
     if (user) {
       const FSCollectionRef = collection(db, "FSs");
@@ -28,7 +24,7 @@ const useFS = () => {
         orderBy("index")
       );
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        const newFS: FSType[] = snapshot.docs.map((doc) => ({
+        const newFS: FSMenuType = snapshot.docs.map((doc) => ({
           id: doc.id,
           name: doc.data().name,
           index: doc.data().index,

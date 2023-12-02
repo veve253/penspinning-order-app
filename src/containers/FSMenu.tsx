@@ -1,13 +1,13 @@
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useAuthContext } from "../contexts/AuthContexts";
-import useFS from "../hooks/useFS";
+import { useFSContext } from "../contexts/FSContexts";
 
 const FSMenu: FC<{
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
-  const { FSs, readFSs } = useFS();
+  const { FSs, readFSs } = useFSContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

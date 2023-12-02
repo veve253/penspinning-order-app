@@ -14,7 +14,7 @@ const TrickElem: FC<{
   };
 
   return (
-    <div className="flex justify-between border mx-auto w-[280px] h-12 rounded-full">
+    <div className="flex justify-between border mx-auto w-4/5 h-12 rounded-full">
       <div className="w-10 my-auto h-[100%] border-r flex items-center justify-center">
         {index + 1}
       </div>
