@@ -8,16 +8,12 @@ const MainPart: FC<{
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
-  const { trickList, addTrick, removeTrick, updateTrick } = useTrick();
+  // const { trickList, addTrick, removeTrick, updateTrick } = useTrick();
   return (
     <main className="relative py-8 min-h-screen">
       <FSMenu isOpen={isOpen} setIsOpen={setIsOpen} />
-      <TrickForm addTrick={addTrick} />
-      <FS
-        trickList={trickList}
-        removeTrick={removeTrick}
-        updateTrick={updateTrick}
-      />
+      <TrickForm />
+      <FS />
     </main>
   );
 };

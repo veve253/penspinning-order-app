@@ -7,7 +7,7 @@ const FSMenu: FC<{
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
-  const { FSs, readFSs } = useFSContext();
+  const { FSs, readFSs, targetFS, handleSetTargetFS, readFS } = useFSContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -16,6 +16,14 @@ const FSMenu: FC<{
   useEffect(() => {
     readFSs();
   }, [user]);
+
+  useEffect(() => {
+    handleSetTargetFS();
+  }, [FSs]);
+
+  useEffect(() => {
+    readFS(targetFS?.id);
+  }, [targetFS]);
 
   return (
     <>
@@ -35,6 +43,7 @@ const FSMenu: FC<{
             <li
               className="p-2 border-b cursor-pointer hover:bg-slate-300"
               key={FS.id}
+              onClick={() => handleSetTargetFS(FS.id)}
             >
               {FS.name}
             </li>
