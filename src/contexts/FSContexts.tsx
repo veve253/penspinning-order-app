@@ -10,6 +10,7 @@ const FSContext = createContext<{
   targetFS: FSType | undefined;
   handleSetTargetFS: any;
   readFS: any;
+  addTrick: any;
 }>({
   FSs: [],
   readFSs: null,
@@ -18,6 +19,7 @@ const FSContext = createContext<{
   targetFS: undefined,
   handleSetTargetFS: null,
   readFS: null,
+  addTrick: null,
 });
 
 export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -31,6 +33,7 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
     targetFS,
     handleSetTargetFS,
     readFS,
+    addTrick,
   } = useFS();
 
   return (
@@ -43,6 +46,7 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
         targetFS,
         handleSetTargetFS,
         readFS,
+        addTrick,
       }}
     >
       {children}

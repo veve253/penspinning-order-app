@@ -33,7 +33,7 @@ const useTrick = () => {
     setTrickList(newTrickList);
   };
 
-  return { trickList, addTrick, removeTrick, updateTrick };
+  return { trickList, setTrickList, addTrick, removeTrick, updateTrick };
 };
 
 export default useTrick;

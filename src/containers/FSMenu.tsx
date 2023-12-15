@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useAuthContext } from "../contexts/AuthContexts";
 import { useFSContext } from "../contexts/FSContexts";
+import { FSType } from "../types/FSType";
 
 const FSMenu: FC<{
   isOpen: boolean;
@@ -25,6 +26,11 @@ const FSMenu: FC<{
     readFS(targetFS?.id);
   }, [targetFS]);
 
+  const selectMenu = (FS: FSType) => {
+    handleSetTargetFS(FS.id);
+    toggleMenu();
+  };
+
   return (
     <>
       <div
@@ -43,7 +49,7 @@ const FSMenu: FC<{
             <li
               className="p-2 border-b cursor-pointer hover:bg-slate-300"
               key={FS.id}
-              onClick={() => handleSetTargetFS(FS.id)}
+              onClick={() => selectMenu(FS)}
             >
               {FS.name}
             </li>

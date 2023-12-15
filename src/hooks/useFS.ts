@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   doc,
   onSnapshot,
@@ -10,10 +11,11 @@ import { useState } from "react";
 import { db } from "../utils/firebase";
 import { useAuthContext } from "../contexts/AuthContexts";
 import { FSMenuType, FSType } from "../types/FSType";
+import { Trick } from "../types/trickType";
 
 const useFS = () => {
   const [FSs, setFSs] = useState<FSMenuType>([]);
-  const [selectedFS, setSelectedFS] = useState([]);
+  const [selectedFS, setSelectedFS] = useState<any>([]);
   const [targetFS, setTargetFS] = useState<FSType>();
   const { user } = useAuthContext();
 
@@ -49,6 +51,7 @@ const useFS = () => {
     }
   };
 
+  // 読み込む対象のFSを設定
   const handleSetTargetFS = (id: string) => {
     if (!targetFS) {
       console.log(FSs);
@@ -75,6 +78,8 @@ const useFS = () => {
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const newFS: any = snapshot.docs.map((doc) => doc.data());
+        console.log(newFS);
+
         setSelectedFS(newFS);
       });
 
@@ -85,6 +90,25 @@ const useFS = () => {
     }
   };
 
+  // FSに技を追加
+  const addTrick = (trick: string) => {
+    const index = selectedFS[selectedFS.length - 1]
+      ? selectedFS[selectedFS.length - 1].index + 1
+      : 1;
+    const newTrick: Trick = {
+      index,
+      trick,
+    };
+
+    if (targetFS) {
+      const FSDocRef = doc(db, "FSs", targetFS.id);
+      const FSCollectionRef = collection(FSDocRef, "FS");
+      addDoc(FSCollectionRef, newTrick);
+    }
+
+    setSelectedFS((prevSelectedFS: any) => [...prevSelectedFS, newTrick]);
+  };
+
   return {
     FSs,
     setFSs,
@@ -93,6 +117,7 @@ const useFS = () => {
     selectedFS,
     targetFS,
     handleSetTargetFS,
+    addTrick,
   };
 };
 

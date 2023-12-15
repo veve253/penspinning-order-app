@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useFSContext } from "../contexts/FSContexts";
 
 const TrickForm: React.FC<{
   // addTrick: (trick: string) => void
@@ -7,15 +8,16 @@ const TrickForm: React.FC<{
     // addTrick,
   }
 ) => {
-  // const trickRef = useRef<HTMLInputElement>(null);
+  const trickRef = useRef<HTMLInputElement>(null);
+  const { addTrick } = useFSContext();
 
   const handleAddTrick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (trickRef.current) {
-    //   const trick = trickRef.current.value;
-    //   addTrick(trick);
-    //   trickRef.current.value = ""; // フォームをクリア
-    // }
+    if (trickRef.current) {
+      const trick = trickRef.current.value;
+      addTrick(trick);
+      trickRef.current.value = ""; // フォームをクリア
+    }
   };
 
   return (
@@ -24,6 +26,7 @@ const TrickForm: React.FC<{
         type="text"
         className="border rounded p-2 mr-2 w-2/3"
         placeholder="技を入力"
+        ref={trickRef}
       />
       <button
         type="submit"
