@@ -15,6 +15,7 @@ const FS: FC<{
         return (
           <div key={index}>
             <TrickElem
+              id={trick.id}
               name={trick.trick}
               index={index}
               // trickIndex={trick.index}

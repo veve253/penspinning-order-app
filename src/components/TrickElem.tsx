@@ -1,33 +1,53 @@
 import { FC, useState } from "react";
+import { useFSContext } from "../contexts/FSContexts";
+import { Trick } from "../types/trickType";
 
 const TrickElem: FC<{
+  id: string;
   index: number;
   name: string;
-}> = ({ index, name }) => {
-  // const newTrick = useState(name);
+}> = ({ id, index, name }) => {
+  const { deleteTrick, selectedFS, setSelectedFS, updateTrick } =
+    useFSContext();
 
-  const handleUpdateTrick = () =>
-    // event: React.ChangeEvent<HTMLInputElement>
-    {
-      // newTrick && updateTrick(trickIndex, event.target.value);
-    };
+  // trickの変更をUIに反映
+  const handleUpdateTrick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFS = selectedFS.map((trick: Trick) =>
+      trick.id === id ? { ...trick, trick: event.target.value } : trick
+    );
+
+    setSelectedFS(newFS);
+  };
+
+  // trickの変更をバックエンドに反映
+  const applyUpdatingTrick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateTrick(id, event.target.value);
+  };
+
+  const handleDeleteTrick = () => {
+    deleteTrick(id);
+  };
 
   return (
-    <div className="flex justify-between border mx-auto text-xs w-4/5 min-h-[32px] rounded-xl">
+    <div className="flex justify-between border mx-auto text-[16px] w-4/5 min-h-[32px] rounded-xl">
       <div className="w-6 my-auto h-full  flex items-center justify-center">
         {index + 1}
       </div>
       <div className="py-auto pl-4 flex items-center min-h-[32px] w-full  border-l">
-        <span className="my-auto  w-full">
+        <span className="my-auto flex  w-full">
           <input
             type="text"
             value={name}
             onChange={handleUpdateTrick}
-            className="w-full hover:underline underline-offset-4 cursor-pointer focus:ring-0 focus-visible:ring-0 focus-visible:outline-none"
+            onBlur={applyUpdatingTrick}
+            className="w-full focus:underline underline-offset-4 cursor-pointer focus:outline-none"
           />
         </span>
       </div>
-      <button className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-[10px] flex items-center justify-center hover:bg-gray-200 rounded-full">
+      <button
+        onClick={handleDeleteTrick}
+        className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-[10px] flex items-center justify-center hover:bg-gray-200 rounded-full"
+      >
         削除
       </button>
     </div>

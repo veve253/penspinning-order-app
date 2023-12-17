@@ -1,10 +1,12 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { useState } from "react";
@@ -77,7 +79,11 @@ const useFS = () => {
       const q = query(FSCollectionRef, orderBy("index"));
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        const newFS: any = snapshot.docs.map((doc) => doc.data());
+        const newFS: any = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          index: doc.data().index,
+          trick: doc.data().trick,
+        }));
         console.log(newFS);
 
         setSelectedFS(newFS);
@@ -91,11 +97,11 @@ const useFS = () => {
   };
 
   // FSに技を追加
-  const addTrick = (trick: string) => {
+  const addTrick = async (trick: string) => {
     const index = selectedFS[selectedFS.length - 1]
       ? selectedFS[selectedFS.length - 1].index + 1
       : 1;
-    const newTrick: Trick = {
+    const newTrick: { index: number; trick: string } = {
       index,
       trick,
     };
@@ -103,10 +109,27 @@ const useFS = () => {
     if (targetFS) {
       const FSDocRef = doc(db, "FSs", targetFS.id);
       const FSCollectionRef = collection(FSDocRef, "FS");
-      addDoc(FSCollectionRef, newTrick);
+      await addDoc(FSCollectionRef, newTrick);
+      readFS(targetFS.id);
     }
+  };
 
-    setSelectedFS((prevSelectedFS: any) => [...prevSelectedFS, newTrick]);
+  const deleteTrick = async (id: string) => {
+    if (targetFS) {
+      const trickDocRef = doc(db, "FSs", targetFS.id, "FS", id);
+      await deleteDoc(trickDocRef);
+      readFS(targetFS.id);
+    }
+  };
+
+  const updateTrick = async (id: string, newTrick: string) => {
+    if (targetFS) {
+      const trickDocRef = doc(db, "FSs", targetFS.id, "FS", id);
+      await updateDoc(trickDocRef, {
+        trick: newTrick,
+      });
+      readFS(targetFS.id);
+    }
   };
 
   return {
@@ -115,9 +138,12 @@ const useFS = () => {
     readFSs,
     readFS,
     selectedFS,
+    setSelectedFS,
     targetFS,
     handleSetTargetFS,
     addTrick,
+    deleteTrick,
+    updateTrick,
   };
 };
 

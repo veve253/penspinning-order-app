@@ -7,19 +7,25 @@ const FSContext = createContext<{
   readFSs: any;
   setFSs: any;
   selectedFS: any;
+  setSelectedFS: any;
   targetFS: FSType | undefined;
   handleSetTargetFS: any;
   readFS: any;
   addTrick: any;
+  deleteTrick: any;
+  updateTrick: any;
 }>({
   FSs: [],
   readFSs: null,
   setFSs: null,
   selectedFS: null,
+  setSelectedFS: null,
   targetFS: undefined,
   handleSetTargetFS: null,
   readFS: null,
   addTrick: null,
+  deleteTrick: null,
+  updateTrick: null,
 });
 
 export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -30,10 +36,13 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
     readFSs,
     setFSs,
     selectedFS,
+    setSelectedFS,
     targetFS,
     handleSetTargetFS,
     readFS,
     addTrick,
+    deleteTrick,
+    updateTrick,
   } = useFS();
 
   return (
@@ -43,10 +52,13 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
         readFSs,
         setFSs,
         selectedFS,
+        setSelectedFS,
         targetFS,
         handleSetTargetFS,
         readFS,
         addTrick,
+        deleteTrick,
+        updateTrick,
       }}
     >
       {children}
