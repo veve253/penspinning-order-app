@@ -11,6 +11,7 @@ const FSContext = createContext<{
   targetFS: FSType | undefined;
   handleSetTargetFS: any;
   readFS: any;
+  addFS: any;
   addTrick: any;
   deleteTrick: any;
   updateTrick: any;
@@ -23,6 +24,7 @@ const FSContext = createContext<{
   targetFS: undefined,
   handleSetTargetFS: null,
   readFS: null,
+  addFS: null,
   addTrick: null,
   deleteTrick: null,
   updateTrick: null,
@@ -40,6 +42,7 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
     targetFS,
     handleSetTargetFS,
     readFS,
+    addFS,
     addTrick,
     deleteTrick,
     updateTrick,
@@ -56,6 +59,7 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
         targetFS,
         handleSetTargetFS,
         readFS,
+        addFS,
         addTrick,
         deleteTrick,
         updateTrick,

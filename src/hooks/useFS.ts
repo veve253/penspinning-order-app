@@ -28,7 +28,7 @@ const useFS = () => {
       const q = query(
         FSCollectionRef,
         where("userId", "==", user.uid),
-        orderBy("index")
+        orderBy("index", "desc")
       );
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const newFS: FSMenuType = snapshot.docs.map((doc) => ({
@@ -39,13 +39,6 @@ const useFS = () => {
         setFSs(newFS);
       });
 
-      if (!targetFS) {
-        console.log(FSs);
-
-        setTargetFS(FSs[0]);
-      }
-      console.log(targetFS);
-
       // メモリリークを防ぐ？
       return () => {
         unsubscribe();
@@ -53,19 +46,21 @@ const useFS = () => {
     }
   };
 
-  // 読み込む対象のFSを設定
-  const handleSetTargetFS = (id: string) => {
-    if (!targetFS) {
-      console.log(FSs);
+  const deleteFSs = async () => {};
 
-      setTargetFS(FSs[0]);
-    } else if (id) {
+  // 読み込む対象のFSを設定
+  const handleSetTargetFS = (id?: string) => {
+    if (id) {
       console.log(id);
 
       const newTargetFS = FSs.find((FS) => {
         return FS.id === id;
       });
       setTargetFS(newTargetFS);
+    } else {
+      console.log(FSs);
+
+      setTargetFS(FSs[0]);
     }
     console.log(targetFS);
   };
@@ -93,6 +88,17 @@ const useFS = () => {
       return () => {
         unsubscribe();
       };
+    }
+  };
+
+  const addFS = async () => {
+    if (user) {
+      const FSCollectionRef = collection(db, "FSs");
+      await addDoc(FSCollectionRef, {
+        index: FSs[0].index + 1,
+        name: "無題",
+        userId: user.uid,
+      });
     }
   };
 
@@ -137,6 +143,7 @@ const useFS = () => {
     setFSs,
     readFSs,
     readFS,
+    addFS,
     selectedFS,
     setSelectedFS,
     targetFS,

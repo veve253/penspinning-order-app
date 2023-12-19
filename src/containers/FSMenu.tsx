@@ -8,7 +8,8 @@ const FSMenu: FC<{
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
-  const { FSs, readFSs, targetFS, handleSetTargetFS, readFS } = useFSContext();
+  const { FSs, readFSs, addFS, targetFS, handleSetTargetFS, readFS } =
+    useFSContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -31,6 +32,12 @@ const FSMenu: FC<{
     toggleMenu();
   };
 
+  const handleAddFS = async () => {
+    await addFS();
+    await readFSs();
+    handleSetTargetFS();
+  };
+
   return (
     <>
       <div
@@ -40,7 +47,10 @@ const FSMenu: FC<{
         overflow-scroll pt-3 flex flex-col`}
       >
         {/* メニュー内容をここに入れる */}
-        <div className="flex mx-auto w-[40%] px-4 py-2 justify-center items-center border mt-2 rounded-lg cursor-pointer hover:text-slate-500">
+        <div
+          onClick={handleAddFS}
+          className="flex mx-auto w-[40%] px-4 py-2 justify-center items-center border mt-2 rounded-lg cursor-pointer hover:text-slate-500"
+        >
           <span className="pr-2">＋</span>
           <h1>New FS</h1>
         </div>
