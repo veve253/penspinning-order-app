@@ -65,31 +65,23 @@ const useFS = () => {
   };
 
   // 特定のFSの読み込み
-  const readFS = (id: string) => {
+  const readFS = async (id: string) => {
     if (id) {
       const FSDocRef = doc(db, "FSs", id);
       const FSCollectionRef = collection(FSDocRef, "FS");
 
       const q = query(FSCollectionRef, orderBy("index"));
 
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const newFS: any = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          index: doc.data().index,
-          trick: doc.data().trick,
-        }));
+      const querySnapshot = await getDocs(q);
 
-        console.log("snap");
+      const newFS = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        index: doc.data().index,
+        trick: doc.data().trick,
+      }));
+      console.log("snap");
 
-        console.log(newFS);
-
-        setSelectedFS(newFS);
-      });
-
-      // メモリリークを防ぐ？
-      return () => {
-        unsubscribe();
-      };
+      setSelectedFS(newFS);
     }
   };
 
@@ -118,6 +110,13 @@ const useFS = () => {
     await deleteDoc(FSDocRef);
   };
 
+  const renameFS = async (id: string, newName: string) => {
+    const trickDocRef = doc(db, "FSs", id);
+    await updateDoc(trickDocRef, {
+      name: newName,
+    });
+  };
+
   // FSに技を追加
   const addTrick = async (trick: string) => {
     const index = selectedFS[selectedFS.length - 1]
@@ -132,6 +131,7 @@ const useFS = () => {
       const FSDocRef = doc(db, "FSs", targetFS.id);
       const FSCollectionRef = collection(FSDocRef, "FS");
       await addDoc(FSCollectionRef, newTrick);
+      readFS(targetFS.id);
     }
   };
 
@@ -139,6 +139,7 @@ const useFS = () => {
     if (targetFS) {
       const trickDocRef = doc(db, "FSs", targetFS.id, "FS", id);
       await deleteDoc(trickDocRef);
+      readFS(targetFS.id);
     }
   };
 
@@ -148,6 +149,7 @@ const useFS = () => {
       await updateDoc(trickDocRef, {
         trick: newTrick,
       });
+      readFS(targetFS.id);
     }
   };
 
@@ -158,6 +160,7 @@ const useFS = () => {
     readFS,
     addFS,
     deleteFS,
+    renameFS,
     selectedFS,
     setSelectedFS,
     targetFS,
