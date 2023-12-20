@@ -8,7 +8,7 @@ const FSMenu: FC<{
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
-  const { FSs, readFSs, addFS, targetFS, handleSetTargetFS, readFS } =
+  const { FSs, readFSs, addFS, deleteFS, targetFS, handleSetTargetFS, readFS } =
     useFSContext();
 
   const toggleMenu = () => {
@@ -37,6 +37,10 @@ const FSMenu: FC<{
     handleSetTargetFS();
   };
 
+  const handleDeleteFS = (id: string) => {
+    deleteFS(id);
+  };
+
   return (
     <>
       <div
@@ -55,15 +59,24 @@ const FSMenu: FC<{
         </div>
         <ul className="w-full mt-4">
           {FSs.map((FS) => (
-            <div className="flex justify-between border-b">
+            <div
+              key={FS.id}
+              className={`flex justify-between border-b ${
+                FS === targetFS && "bg-sky-100"
+              }`}
+            >
               <div
                 className="p-2  cursor-pointer hover:bg-slate-300 w-full"
-                key={FS.id}
                 onClick={() => selectMenu(FS)}
               >
                 {FS.name}
               </div>
-              <button className="text-gray-700">削除</button>
+              <button
+                onClick={() => handleDeleteFS(FS.id)}
+                className="text-gray-700"
+              >
+                削除
+              </button>
             </div>
           ))}
         </ul>

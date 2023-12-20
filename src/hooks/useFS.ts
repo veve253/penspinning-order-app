@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -103,7 +104,19 @@ const useFS = () => {
     }
   };
 
-  const deleteFS = async () => {};
+  const deleteFS = async (id: string) => {
+    const FSDocRef = doc(db, "FSs", id);
+    const FSCollectionRef = collection(FSDocRef, "FS");
+    const FSCollection = await getDocs(FSCollectionRef);
+
+    const deleteSubCollection = FSCollection.docs.map((FSElem) => {
+      deleteDoc(FSElem.ref);
+    });
+
+    await Promise.all(deleteSubCollection);
+
+    await deleteDoc(FSDocRef);
+  };
 
   // FSに技を追加
   const addTrick = async (trick: string) => {
@@ -144,6 +157,7 @@ const useFS = () => {
     readFSs,
     readFS,
     addFS,
+    deleteFS,
     selectedFS,
     setSelectedFS,
     targetFS,
