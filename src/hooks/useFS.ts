@@ -36,6 +36,8 @@ const useFS = () => {
           name: doc.data().name,
           index: doc.data().index,
         }));
+        console.log("onSnapshot");
+
         setFSs(newFS);
       });
 
@@ -51,15 +53,11 @@ const useFS = () => {
   // 読み込む対象のFSを設定
   const handleSetTargetFS = (id?: string) => {
     if (id) {
-      console.log(id);
-
       const newTargetFS = FSs.find((FS) => {
         return FS.id === id;
       });
       setTargetFS(newTargetFS);
     } else {
-      console.log(FSs);
-
       setTargetFS(FSs[0]);
     }
     console.log(targetFS);
@@ -79,6 +77,9 @@ const useFS = () => {
           index: doc.data().index,
           trick: doc.data().trick,
         }));
+
+        console.log("snap");
+
         console.log(newFS);
 
         setSelectedFS(newFS);
@@ -102,6 +103,8 @@ const useFS = () => {
     }
   };
 
+  const deleteFS = async () => {};
+
   // FSに技を追加
   const addTrick = async (trick: string) => {
     const index = selectedFS[selectedFS.length - 1]
@@ -116,7 +119,6 @@ const useFS = () => {
       const FSDocRef = doc(db, "FSs", targetFS.id);
       const FSCollectionRef = collection(FSDocRef, "FS");
       await addDoc(FSCollectionRef, newTrick);
-      readFS(targetFS.id);
     }
   };
 
@@ -124,7 +126,6 @@ const useFS = () => {
     if (targetFS) {
       const trickDocRef = doc(db, "FSs", targetFS.id, "FS", id);
       await deleteDoc(trickDocRef);
-      readFS(targetFS.id);
     }
   };
 
@@ -134,7 +135,6 @@ const useFS = () => {
       await updateDoc(trickDocRef, {
         trick: newTrick,
       });
-      readFS(targetFS.id);
     }
   };
 

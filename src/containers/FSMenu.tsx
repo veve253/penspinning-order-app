@@ -34,7 +34,6 @@ const FSMenu: FC<{
 
   const handleAddFS = async () => {
     await addFS();
-    await readFSs();
     handleSetTargetFS();
   };
 
@@ -56,13 +55,16 @@ const FSMenu: FC<{
         </div>
         <ul className="w-full mt-4">
           {FSs.map((FS) => (
-            <li
-              className="p-2 border-b cursor-pointer hover:bg-slate-300"
-              key={FS.id}
-              onClick={() => selectMenu(FS)}
-            >
-              {FS.name}
-            </li>
+            <div className="flex justify-between border-b">
+              <div
+                className="p-2  cursor-pointer hover:bg-slate-300 w-full"
+                key={FS.id}
+                onClick={() => selectMenu(FS)}
+              >
+                {FS.name}
+              </div>
+              <button className="text-gray-700">削除</button>
+            </div>
           ))}
         </ul>
       </div>
