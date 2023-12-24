@@ -49,16 +49,14 @@ const useFS = () => {
     }
   };
 
-  const deleteFSs = async () => {};
-
   // 読み込む対象のFSを設定
-  const handleSetTargetFS = (id?: string) => {
+  const handleSetTargetFS = (id?: string, isFirst?: boolean) => {
     if (id) {
       const newTargetFS = FSs.find((FS) => {
         return FS.id === id;
       });
       setTargetFS(newTargetFS);
-    } else {
+    } else if (!targetFS || isFirst) {
       setTargetFS(FSs[0]);
     }
     console.log(targetFS);

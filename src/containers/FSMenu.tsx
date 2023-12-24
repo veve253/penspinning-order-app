@@ -42,7 +42,7 @@ const FSMenu: FC<{
 
   const handleAddFS = async () => {
     await addFS();
-    handleSetTargetFS();
+    handleSetTargetFS(undefined);
   };
 
   const handleDeleteFS = (id: string) => {
