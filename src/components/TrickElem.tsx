@@ -45,14 +45,14 @@ const TrickElem: FC<{
   };
 
   return (
-    <div className="flex justify-between border mx-auto text-[16px] w-4/5 min-h-[32px] rounded-xl">
+    <div className="flex justify-between border mx-auto text-sm w-[320px] min-h-[28px] rounded-xl">
       <div className="w-6 my-auto h-full flex items-center justify-center">
         {index + 1}
       </div>
       <div
         onClick={handleOnClick}
         onBlur={handleOnBlur}
-        className="py-auto pl-4 flex items-center min-h-[32px] w-full border-l break-words break-all"
+        className="py-auto pl-4 flex items-center min-h-[28px] w-full border-l break-words break-all"
       >
         {clicked ? (
           <span className="my-auto flex w-full">
@@ -62,7 +62,7 @@ const TrickElem: FC<{
               ref={inputTrickRef}
               onChange={handleUpdateTrick}
               onBlur={applyUpdatingTrick}
-              className="w-full focus:underline underline-offset-4 cursor-pointer focus:outline-none"
+              className="w-full focus:border-b underline-offset-4 cursor-pointer focus:outline-none"
             />
           </span>
         ) : (

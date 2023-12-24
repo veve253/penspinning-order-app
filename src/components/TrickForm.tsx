@@ -24,13 +24,13 @@ const TrickForm: React.FC<{
     <form onSubmit={handleAddTrick} className="flex justify-center">
       <input
         type="text"
-        className="border rounded p-2 mr-2 w-2/3"
+        className="border-b p-1 mr-2 w-[250px] focus:outline-none focus:border-sky-600"
         placeholder="技を入力"
         ref={trickRef}
       />
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-sky-400 hover:bg-blue-700 text-white text-sm py-1 px-3 rounded-full"
       >
         追加
       </button>

@@ -72,7 +72,7 @@ const FSMenu: FC<{
           <span className="pr-2">＋</span>
           <h1>New FS</h1>
         </div>
-        <ul className="w-full mt-4">
+        <ul className="w-full mt-4 text-[16px]">
           {FSs.map((FS) => (
             <div
               key={FS.id}
@@ -81,13 +81,13 @@ const FSMenu: FC<{
               }`}
             >
               <div
-                className="p-2  cursor-pointerw-full"
+                className="p-2 cursor-pointer w-full"
                 onClick={() => selectMenu(FS)}
               >
                 {FS.name}
               </div>
-              <div className="flex">
-                <button
+
+              {/* <button
                   onClick={() => handleRenameFS(FS.id)}
                   className="text-gray-700 hover:text-sky-600"
                 >
@@ -99,7 +99,13 @@ const FSMenu: FC<{
                   className="text-gray-700 hover:text-red-600"
                 >
                   削除
-                </button>
+                </button> */}
+
+              <div className="cursor-pointer my-auto w-5 h-3 flex">
+                {/* ミートボールアイコン（3つのドット） */}
+                <span className="w-1 h-1 my-auto bg-gray-600 rounded-full"></span>
+                <span className="w-1 h-1 my-auto bg-gray-600 rounded-full ml-[2px]"></span>
+                <span className="w-1 h-1 my-auto bg-gray-600 rounded-full ml-[2px]"></span>
               </div>
             </div>
           ))}
