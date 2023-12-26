@@ -2,12 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useFSContext } from "../contexts/FSContexts";
 
 const FSTitle = () => {
-  const { targetFS, renameFS } = useFSContext();
+  const { targetFS, handleSetTargetFS, renameFS, FSs } = useFSContext();
   const [FSName, setFSName] = useState(targetFS?.name);
 
   useEffect(() => {
     setFSName(targetFS?.name);
   }, [targetFS]);
+
+  // FSMenuから名前が変更されたときに、それを反映
+  useEffect(() => {
+    handleSetTargetFS(targetFS?.id);
+  }, [FSs]);
 
   const [clicked, setClicked] = useState(false);
 

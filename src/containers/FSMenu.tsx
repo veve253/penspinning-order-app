@@ -2,22 +2,15 @@ import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { useAuthContext } from "../contexts/AuthContexts";
 import { useFSContext } from "../contexts/FSContexts";
 import { FSType } from "../types/FSType";
+import FSMenuItem from "../components/FSMenuItem";
 
 const FSMenu: FC<{
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }> = ({ isOpen, setIsOpen }) => {
   const { user } = useAuthContext();
-  const {
-    FSs,
-    readFSs,
-    addFS,
-    deleteFS,
-    renameFS,
-    targetFS,
-    handleSetTargetFS,
-    readFS,
-  } = useFSContext();
+  const { FSs, readFSs, addFS, targetFS, handleSetTargetFS, readFS } =
+    useFSContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -35,25 +28,9 @@ const FSMenu: FC<{
     readFS(targetFS?.id);
   }, [targetFS]);
 
-  const selectMenu = (FS: FSType) => {
-    handleSetTargetFS(FS.id);
-    toggleMenu();
-  };
-
   const handleAddFS = async () => {
     await addFS();
     handleSetTargetFS(undefined);
-  };
-
-  const handleDeleteFS = (id: string) => {
-    deleteFS(id);
-  };
-
-  const handleRenameFS = async (id: string) => {
-    const newName: string | null = prompt("新しいFS名を入力");
-    if (newName) {
-      await renameFS(id, newName);
-    }
   };
 
   return (
@@ -74,40 +51,7 @@ const FSMenu: FC<{
         </div>
         <ul className="w-full mt-4 text-[16px]">
           {FSs.map((FS) => (
-            <div
-              key={FS.id}
-              className={`flex justify-between border-b hover:bg-slate-300  ${
-                FS === targetFS && "bg-sky-100"
-              }`}
-            >
-              <div
-                className="p-2 cursor-pointer w-full"
-                onClick={() => selectMenu(FS)}
-              >
-                {FS.name}
-              </div>
-
-              {/* <button
-                  onClick={() => handleRenameFS(FS.id)}
-                  className="text-gray-700 hover:text-sky-600"
-                >
-                  変更
-                </button>
-
-                <button
-                  onClick={() => handleDeleteFS(FS.id)}
-                  className="text-gray-700 hover:text-red-600"
-                >
-                  削除
-                </button> */}
-
-              <div className="cursor-pointer my-auto w-5 h-3 flex">
-                {/* ミートボールアイコン（3つのドット） */}
-                <span className="w-1 h-1 my-auto bg-gray-600 rounded-full"></span>
-                <span className="w-1 h-1 my-auto bg-gray-600 rounded-full ml-[2px]"></span>
-                <span className="w-1 h-1 my-auto bg-gray-600 rounded-full ml-[2px]"></span>
-              </div>
-            </div>
+            <FSMenuItem key={FS.id} FS={FS} toggleMenu={toggleMenu} />
           ))}
         </ul>
       </div>
