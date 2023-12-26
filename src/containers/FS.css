@@ -1,3 +1,7 @@
 .custom-chevron {
   transform: translateY(-25%) rotate(135deg);
 }
+
+.custom-chevron-bottom {
+  transform: translateY(-25%) rotate(-45deg);
+}
