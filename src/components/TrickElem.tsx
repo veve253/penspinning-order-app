@@ -45,7 +45,7 @@ const TrickElem: FC<{
   };
 
   return (
-    <div className="flex justify-between border mx-auto text-sm w-[320px] min-h-[28px] rounded-xl">
+    <div className="flex justify-between border mx-auto text-sm md:text-base w-[320px] md:w-[450px] min-h-[28px] md:min-h-[35px] rounded-xl">
       <div className="w-6 my-auto h-full flex items-center justify-center">
         {index + 1}
       </div>
@@ -71,7 +71,7 @@ const TrickElem: FC<{
       </div>
       <button
         onClick={handleDeleteTrick}
-        className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-[10px] flex items-center justify-center hover:bg-gray-200 rounded-full"
+        className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-xs flex items-center justify-center hover:bg-gray-200 rounded-full"
       >
         削除
       </button>

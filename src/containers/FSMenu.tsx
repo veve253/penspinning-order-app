@@ -13,7 +13,9 @@ const FSMenu: FC<{
     useFSContext();
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    if (isOpen) {
+      setIsOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -36,10 +38,10 @@ const FSMenu: FC<{
   return (
     <>
       <div
-        className={`absolute inset-0 left-0 transform transition duration-200 ease-in-out bg-white w-2/3 max-w-[500px] h-full shadow-md z-10
+        className={`absolute inset-0 left-0 transform transition duration-200 ease-in-out bg-white w-2/3 max-w-[350px] h-full shadow-md z-10
         overflow-scroll pt-3 flex flex-col ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } `}
+        } lg:translate-x-0 lg:w-[350px] lg:duration-0`}
       >
         {/* メニュー内容をここに入れる */}
         <div

@@ -11,7 +11,7 @@ const Hamburger: FC<{
   return (
     <div>
       <div
-        className="cursor-pointer ml-2 flex flex-col space-y-1.5"
+        className="lg:hidden cursor-pointer ml-2 flex flex-col space-y-1.5"
         onClick={toggleMenu}
       >
         <span className="block w-6 h-[2px] bg-gray-800" />

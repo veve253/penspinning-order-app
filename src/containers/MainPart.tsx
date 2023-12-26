@@ -10,10 +10,12 @@ const MainPart: FC<{
 }> = ({ isOpen, setIsOpen }) => {
   return (
     <main className="relative py-8 min-h-screen">
-      <FSTitle />
       <FSMenu isOpen={isOpen} setIsOpen={setIsOpen} />
-      <TrickForm />
-      <FS />
+      <div className="lg:absolute lg:left-[450px] xl:static">
+        <FSTitle />
+        <TrickForm />
+        <FS />
+      </div>
     </main>
   );
 };
