@@ -1,4 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { useFSContext } from "../contexts/FSContexts";
 import { Trick } from "../types/trickType";
 
@@ -7,6 +9,9 @@ const TrickElem: FC<{
   index: number;
   name: string;
 }> = ({ id, index, name }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: id });
+
   const { deleteTrick, selectedFS, setSelectedFS, updateTrick } =
     useFSContext();
 
@@ -17,6 +22,12 @@ const TrickElem: FC<{
   useEffect(() => {
     clicked ? inputTrickRef.current?.focus() : inputTrickRef.current?.blur();
   }, [clicked]);
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    touchAction: "auto",
+  };
 
   const handleOnClick = async () => {
     setClicked(true);
@@ -45,8 +56,16 @@ const TrickElem: FC<{
   };
 
   return (
-    <div className="flex justify-between border mx-auto text-sm md:text-base w-[320px] md:w-[450px] min-h-[28px] md:min-h-[35px] rounded-xl">
-      <div className="w-6 my-auto h-full flex items-center justify-center">
+    <div
+      style={style}
+      className="flex justify-between border mx-auto text-sm md:text-base w-[320px] md:w-[450px] min-h-[28px] md:min-h-[35px] rounded-xl"
+    >
+      <div
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}
+        className="w-6 my-auto h-full flex items-center justify-center"
+      >
         {index + 1}
       </div>
       <div

@@ -1,26 +1,76 @@
 import "./FS.css";
+import { useState } from "react";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  TouchSensor,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import TrickElem from "../components/TrickElem";
 import { useFSContext } from "../contexts/FSContexts";
-import { useState } from "react";
+
 import TrickFormBottom from "../components/TrickFormBottom";
+import { Trick } from "../types/trickType";
+import { FSType } from "../types/FSType";
 
 const FS = () => {
-  const { selectedFS } = useFSContext();
+  const { selectedFS, setSelectedFS } = useFSContext();
   const [clicked, setClicked] = useState(false);
+  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setSelectedFS((fs: any) => {
+        const oldIndex = fs.findIndex((trick: Trick) => trick.id === active.id);
+        const newIndex = fs.findIndex((trick: Trick) => trick.id === over.id);
+        const newSelectedFS = arrayMove(fs, oldIndex, newIndex);
+        const toAddTricks = newSelectedFS.map((trick: any, num: number) => {
+          return { ...trick, index: num };
+        });
+        return toAddTricks;
+      });
+    }
+  };
+
   return (
     <div className="mt-6">
-      {selectedFS.map((trick: any, index: any) => {
-        return (
-          <div key={index}>
-            <TrickElem id={trick.id} name={trick.trick} index={index} />
-            {index !== selectedFS.length - 1 && (
-              <div className="text-center">
-                <div className="px-auto inline-block align-middle text-gray-400 leading-none w-2 h-2 mb-[1px] border border-current border-l-0 border-b-0 box-border custom-chevron"></div>
-              </div>
-            )}
-          </div>
-        );
-      })}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={selectedFS}
+          strategy={verticalListSortingStrategy}
+        >
+          {selectedFS.map((trick: any, index: any) => {
+            return (
+              <>
+                <TrickElem
+                  key={trick.id}
+                  id={trick.id}
+                  name={trick.trick}
+                  index={trick.index}
+                />
+                {index !== selectedFS.length - 1 && (
+                  <div className="text-center">
+                    <div className="px-auto inline-block align-middle text-gray-400 leading-none w-2 h-2 mb-[1px] border border-current border-l-0 border-b-0 box-border custom-chevron"></div>
+                  </div>
+                )}
+              </>
+            );
+          })}
+        </SortableContext>
+      </DndContext>
 
       {clicked && <TrickFormBottom setClicked={setClicked} />}
       <div className="text-center">
