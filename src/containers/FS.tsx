@@ -54,9 +54,8 @@ const FS = () => {
         >
           {selectedFS.map((trick: any, index: any) => {
             return (
-              <>
+              <div key={trick.id}>
                 <TrickElem
-                  key={trick.id}
                   id={trick.id}
                   name={trick.trick}
                   index={trick.index}
@@ -66,7 +65,7 @@ const FS = () => {
                     <div className="px-auto inline-block align-middle text-gray-400 leading-none w-2 h-2 mb-[1px] border border-current border-l-0 border-b-0 box-border custom-chevron"></div>
                   </div>
                 )}
-              </>
+              </div>
             );
           })}
         </SortableContext>

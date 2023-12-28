@@ -11,9 +11,15 @@ const TrickFormBottom: React.FC<{
     e.preventDefault();
     if (trickRef.current) {
       const trick = trickRef.current.value;
-      addTrick(trick);
-      setClicked(false);
-      trickRef.current.value = ""; // フォームをクリア
+      if (!trick) {
+        alert("技が入力されていません");
+      } else if (trick.length > 50) {
+        alert("文字数が超過しています");
+      } else {
+        addTrick(trick);
+        setClicked(false);
+        trickRef.current.value = ""; // フォームをクリア
+      }
     }
   };
 

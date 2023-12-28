@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
@@ -117,37 +118,65 @@ const useFS = () => {
 
   // FSに技を追加
   const addTrick = async (trick: string) => {
-    const index = selectedFS[selectedFS.length - 1]
-      ? selectedFS[selectedFS.length - 1].index + 1
-      : 1;
-    const newTrick: { index: number; trick: string } = {
-      index,
-      trick,
-    };
-
     if (targetFS) {
-      const FSDocRef = doc(db, "FSs", targetFS.id);
-      const FSCollectionRef = collection(FSDocRef, "FS");
+      // 新しいtrickを定義
+      const index = selectedFS[selectedFS.length - 1]
+        ? selectedFS[selectedFS.length - 1].index + 1
+        : 1;
+      const newTrick: { index: number; trick: string } = {
+        index,
+        trick,
+      };
+
+      // dbへ追加
+      const FSCollectionRef = collection(db, "FSs", targetFS.id, "FS");
       await addDoc(FSCollectionRef, newTrick);
-      readFS(targetFS.id);
+
+      // 追加したtrickを読み込み
+      const q = query(FSCollectionRef, orderBy("index", "desc"), limit(1));
+      const querySnapshot = await getDocs(q);
+      setSelectedFS((prev: Trick[]) => {
+        const newTrick = {
+          id: querySnapshot.docs[0].id,
+          index: querySnapshot.docs[0].data().index,
+          trick: querySnapshot.docs[0].data().trick,
+        };
+        return [...prev, newTrick];
+      });
     }
   };
 
   const deleteTrick = async (id: string) => {
     if (targetFS) {
+      // フロント
+      setSelectedFS((prev: Trick[]) => {
+        const newFS = prev.filter((trick: Trick) => trick.id !== id);
+        return newFS;
+      });
+      // dbへの反映
       const trickDocRef = doc(db, "FSs", targetFS.id, "FS", id);
-      await deleteDoc(trickDocRef);
-      readFS(targetFS.id);
+      deleteDoc(trickDocRef);
     }
   };
 
   const updateTrick = async (id: string, newTrick: string) => {
     if (targetFS) {
+      // フロント
+      setSelectedFS((prev: Trick[]) => {
+        const newFS = prev.map((trick: Trick) => {
+          if (trick.id === id) {
+            return { ...trick, trick: newTrick };
+          } else {
+            return trick;
+          }
+        });
+        return newFS;
+      });
+      // dbへの反映
       const trickDocRef = doc(db, "FSs", targetFS.id, "FS", id);
-      await updateDoc(trickDocRef, {
+      updateDoc(trickDocRef, {
         trick: newTrick,
       });
-      readFS(targetFS.id);
     }
   };
 

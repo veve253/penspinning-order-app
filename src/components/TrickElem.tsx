@@ -58,7 +58,7 @@ const TrickElem: FC<{
   return (
     <div
       style={style}
-      className="flex justify-between border mx-auto text-sm md:text-base w-[320px] md:w-[450px] min-h-[28px] md:min-h-[35px] rounded-xl"
+      className="flex justify-between border mx-auto text-sm md:text-base w-full min-h-[28px] md:min-h-[35px] rounded-xl"
     >
       <div
         ref={setNodeRef}

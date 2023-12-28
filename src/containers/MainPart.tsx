@@ -11,7 +11,7 @@ const MainPart: FC<{
   return (
     <main className="relative py-8 min-h-screen">
       <FSMenu isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="lg:absolute lg:left-[450px] xl:static">
+      <div className=" w-[320px] md:w-[450px] mx-auto lg:absolute lg:left-[450px] xl:static">
         <FSTitle />
         <TrickForm />
         <FS />

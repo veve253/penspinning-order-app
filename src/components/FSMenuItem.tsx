@@ -60,7 +60,7 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
 
   return (
     <div
-      className={`flex justify-between border-b hover:bg-slate-300  ${
+      className={`flex justify-between border-b hover:bg-slate-300 break-words break-all ${
         FS.id === targetFS?.id && "bg-sky-100"
       }`}
     >

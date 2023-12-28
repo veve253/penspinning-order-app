@@ -33,7 +33,7 @@ const FSTitle = () => {
   return (
     <div>
       <h2
-        className="text-center text-xl mb-3"
+        className="text-center text-xl mb-3 break-words break-all"
         onClick={() => setClicked(true)}
         onBlur={() => setClicked(false)}
       >
