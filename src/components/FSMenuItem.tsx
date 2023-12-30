@@ -70,7 +70,7 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
           value={FSName}
           onChange={handleRenameFS}
           onBlur={() => applyRenamingFS(FS.id, FSName)}
-          className="p-2 cursor-pointer w-full focus:border-b underline-offset-4 focus:outline-none"
+          className="p-2 cursor-pointer w-full border-b underline-offset-4 focus:outline-none"
         />
       ) : (
         <div
@@ -80,23 +80,24 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
           {FSName}
         </div>
       )}
+
+      {/* ミートボールメニュー */}
       <div tabIndex={0} onBlur={handleBlur} className="relative mt-[14px] ">
         <div
           onClick={() => setIsOpen(!isOpen)}
           className="cursor-pointer my-auto w-5 h-3 flex"
         >
-          {/* ミートボールアイコン（3つのドット） */}
           <span className="w-1 h-1 my-auto bg-gray-600 rounded-full"></span>
           <span className="w-1 h-1 my-auto bg-gray-600 rounded-full ml-[2px]"></span>
           <span className="w-1 h-1 my-auto bg-gray-600 rounded-full ml-[2px]"></span>
         </div>
         {isOpen && (
-          <div className="flex z-10 flex-col origin-top-right absolute right-0 w-[40px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div className="flex z-10 flex-col origin-top-right absolute right-0 w-[70px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <button
               onClick={() => setRenaming(true)}
               className="text-sm text-gray-700 hover:bg-slate-300 hover:text-sky-600 border-b"
             >
-              変更
+              名前変更
             </button>
 
             <button

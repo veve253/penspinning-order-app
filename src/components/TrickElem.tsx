@@ -8,7 +8,8 @@ const TrickElem: FC<{
   id: string;
   index: number;
   name: string;
-}> = ({ id, index, name }) => {
+  sorting: boolean;
+}> = ({ id, index, name, sorting }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
 
@@ -60,20 +61,37 @@ const TrickElem: FC<{
       style={style}
       className="flex justify-between border mx-auto text-sm md:text-base w-full min-h-[28px] md:min-h-[35px] rounded-xl"
     >
-      <div
-        ref={setNodeRef}
-        {...attributes}
-        {...listeners}
-        className="w-6 my-auto h-full flex items-center justify-center"
-      >
-        {index + 1}
-      </div>
+      {sorting ? (
+        <div
+          ref={setNodeRef}
+          {...attributes}
+          {...listeners}
+          className="w-6 my-auto h-full flex items-center justify-center"
+        >
+          <div className="flex flex-col gap-1">
+            {[...Array(3)].map((_, rowIndex) => (
+              <div key={rowIndex} className="flex flex-row gap-1">
+                {[...Array(2)].map((_, colIndex) => (
+                  <span
+                    key={colIndex}
+                    className="h-1 w-1 bg-gray-400 rounded-full"
+                  ></span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="w-6 my-auto h-full flex items-center justify-center">
+          {index + 1}
+        </div>
+      )}
       <div
         onClick={handleOnClick}
         onBlur={handleOnBlur}
         className="py-auto pl-4 flex items-center min-h-[28px] w-full border-l break-words break-all"
       >
-        {clicked ? (
+        {clicked && !sorting ? (
           <span className="my-auto flex w-full">
             <input
               type="text"
@@ -88,12 +106,14 @@ const TrickElem: FC<{
           name
         )}
       </div>
-      <button
-        onClick={handleDeleteTrick}
-        className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-xs flex items-center justify-center hover:bg-gray-200 rounded-full"
-      >
-        削除
-      </button>
+      {sorting || (
+        <button
+          onClick={handleDeleteTrick}
+          className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-xs flex items-center justify-center hover:bg-gray-200 rounded-full"
+        >
+          削除
+        </button>
+      )}
     </div>
   );
 };
