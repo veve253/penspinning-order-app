@@ -5,7 +5,8 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   sorting,
   setSorting,
 }) => {
-  const { targetFS, handleSetTargetFS, renameFS, FSs } = useFSContext();
+  const { targetFS, handleSetTargetFS, renameFS, FSs, updateTrickIndex } =
+    useFSContext();
   const [FSName, setFSName] = useState(targetFS?.name);
 
   useEffect(() => {
@@ -49,6 +50,11 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
     }
   };
 
+  const handleSortingFS = async () => {
+    await updateTrickIndex();
+    setSorting(false);
+  };
+
   // const applyNewFSName = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   renameFS(targetFS?.id, event.target.value);
   // };
@@ -80,7 +86,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
           ) : targetFS ? (
             targetFS.name
           ) : (
-            ""
+            "無題のコンボ"
           )}
         </h2>
 
@@ -88,7 +94,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
           <div className="relative w-[40px] flex justify-end mt-2">
             <button
               className="flex items-center justify-center text-center rounded-xl w-8 h-5 bg-sky-400 hover:bg-blue-700 text-white p-[1.5px] text-xs"
-              onClick={() => setSorting(false)}
+              onClick={handleSortingFS}
             >
               完了
             </button>

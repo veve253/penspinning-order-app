@@ -10,6 +10,7 @@ import {
   query,
   updateDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
 import { useState } from "react";
 import { db } from "../utils/firebase";
@@ -122,7 +123,7 @@ const useFS = () => {
       // 新しいtrickを定義
       const index = selectedFS[selectedFS.length - 1]
         ? selectedFS[selectedFS.length - 1].index + 1
-        : 1;
+        : 0;
       const newTrick: { index: number; trick: string } = {
         index,
         trick,
@@ -180,6 +181,18 @@ const useFS = () => {
     }
   };
 
+  const updateTrickIndex = async () => {
+    if (targetFS) {
+      // dbに対して複数の書き込みを行うため、batch処理を用いる
+      const batch = writeBatch(db);
+      selectedFS.forEach((trick: Trick, index: number) => {
+        const trickDocRef = doc(db, "FSs", targetFS.id, "FS", trick.id);
+        batch.update(trickDocRef, { index });
+      });
+      await batch.commit();
+    }
+  };
+
   return {
     FSs,
     setFSs,
@@ -195,6 +208,7 @@ const useFS = () => {
     addTrick,
     deleteTrick,
     renameTrick,
+    updateTrickIndex,
   };
 };
 

@@ -60,7 +60,7 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
 
   return (
     <div
-      className={`flex justify-between border-b hover:bg-slate-300 break-words break-all ${
+      className={`flex h-10 justify-between border-b hover:bg-slate-300 break-words break-all ${
         FS.id === targetFS?.id && "bg-sky-100"
       }`}
     >
@@ -70,7 +70,7 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
           value={FSName}
           onChange={handleRenameFS}
           onBlur={() => applyRenamingFS(FS.id, FSName)}
-          className="p-2 cursor-pointer w-full border-b underline-offset-4 focus:outline-none"
+          className="mx-2 my-auto h-6 bg-transparent cursor-pointer w-full border-b-[0.5px] border-gray-600 underline-offset-0 focus:outline-none"
         />
       ) : (
         <div
