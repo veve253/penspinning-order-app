@@ -16,7 +16,7 @@ const FSContext = createContext<{
   renameFS: any;
   addTrick: any;
   deleteTrick: any;
-  updateTrick: any;
+  renameTrick: any;
 }>({
   FSs: [],
   readFSs: null,
@@ -31,7 +31,7 @@ const FSContext = createContext<{
   renameFS: null,
   addTrick: null,
   deleteTrick: null,
-  updateTrick: null,
+  renameTrick: null,
 });
 
 export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -51,7 +51,7 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
     renameFS,
     addTrick,
     deleteTrick,
-    updateTrick,
+    renameTrick,
   } = useFS();
 
   return (
@@ -70,7 +70,7 @@ export const FSProvider: React.FC<{ children: React.ReactNode }> = ({
         renameFS,
         addTrick,
         deleteTrick,
-        updateTrick,
+        renameTrick,
       }}
     >
       {children}

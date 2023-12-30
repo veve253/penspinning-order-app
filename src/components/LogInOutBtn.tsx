@@ -1,11 +1,11 @@
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
 import { auth, provider } from "../utils/firebase";
 import { useAuthContext } from "../contexts/AuthContexts";
 
 const LoginBtn = () => {
   const { user } = useAuthContext();
   const signInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithRedirect(auth, provider);
   };
 
   const handleSignOut = async () => {

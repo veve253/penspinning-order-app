@@ -159,7 +159,7 @@ const useFS = () => {
     }
   };
 
-  const updateTrick = async (id: string, newTrick: string) => {
+  const renameTrick = async (id: string, newTrick: string) => {
     if (targetFS) {
       // フロント
       setSelectedFS((prev: Trick[]) => {
@@ -194,7 +194,7 @@ const useFS = () => {
     handleSetTargetFS,
     addTrick,
     deleteTrick,
-    updateTrick,
+    renameTrick,
   };
 };
 

@@ -13,7 +13,7 @@ const TrickElem: FC<{
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: id });
 
-  const { deleteTrick, selectedFS, setSelectedFS, updateTrick } =
+  const { deleteTrick, selectedFS, setSelectedFS, renameTrick } =
     useFSContext();
 
   const [clicked, setClicked] = useState(false);
@@ -49,7 +49,7 @@ const TrickElem: FC<{
 
   // trickの変更をバックエンドに反映
   const applyUpdatingTrick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateTrick(id, event.target.value);
+    renameTrick(id, event.target.value);
   };
 
   const handleDeleteTrick = () => {
