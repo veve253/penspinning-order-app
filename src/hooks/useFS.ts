@@ -85,12 +85,12 @@ const useFS = () => {
     }
   };
 
-  const addFS = async () => {
+  const addFS = async (name?: string) => {
     if (user) {
       const FSCollectionRef = collection(db, "FSs");
       await addDoc(FSCollectionRef, {
         index: FSs[0].index + 1,
-        name: "無題",
+        name: name ? name : "無題",
         userId: user.uid,
       });
     }

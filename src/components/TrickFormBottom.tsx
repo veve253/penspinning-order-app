@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useFSContext } from "../contexts/FSContexts";
 
 const TrickFormBottom: React.FC<{
@@ -6,6 +6,25 @@ const TrickFormBottom: React.FC<{
 }> = ({ setClicked }) => {
   const trickRef = useRef<HTMLInputElement>(null);
   const { addTrick } = useFSContext();
+
+  useEffect(() => {
+    // コンポーネントがマウントされたらinput要素にフォーカスを当てる
+    trickRef.current?.focus();
+  }, []);
+
+  let blurTimeoutId: number | null = null;
+  useEffect(() => {
+    // コンポーネントがアンマウントされるときにタイマーをクリアする
+    return () => {
+      if (blurTimeoutId) clearTimeout(blurTimeoutId);
+    };
+  }, []);
+
+  const handleBlur = () => {
+    blurTimeoutId = window.setTimeout(() => {
+      setClicked(false);
+    }, 100);
+  };
 
   const handleAddTrick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +43,7 @@ const TrickFormBottom: React.FC<{
   };
 
   return (
-    <>
+    <div tabIndex={0} onBlur={handleBlur}>
       <div className="text-center">
         <div className="px-auto inline-block align-middle text-gray-400 leading-none w-2 h-2 mb-[1px] border border-current border-l-0 border-b-0 box-border custom-chevron"></div>
       </div>
@@ -45,7 +64,7 @@ const TrickFormBottom: React.FC<{
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

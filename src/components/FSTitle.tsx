@@ -69,7 +69,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   return (
     <div>
       <div className="flex justify-between w-full">
-        <div className="w-[20px]"></div>
+        <div className="w-10"></div>
         <h2 className="px-3 w-full text-center text-xl mb-3 break-words break-all">
           {renaming ? (
             <input
@@ -91,17 +91,15 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
         </h2>
 
         {sorting ? (
-          <div className="relative w-[40px] flex justify-end mt-2">
-            <button
-              className="flex items-center justify-center text-center rounded-xl w-8 h-5 bg-sky-400 hover:bg-blue-700 text-white p-[1.5px] text-xs"
-              onClick={handleSortingFS}
-            >
-              完了
-            </button>
-          </div>
+          <button
+            className="flex items-center justify-center text-center rounded-full w-10 h-7 bg-sky-400 hover:bg-blue-700 text-white p-[1.5px] text-xs"
+            onClick={handleSortingFS}
+          >
+            完了
+          </button>
         ) : renaming ? (
           <button
-            className="flex items-center justify-center text-center rounded-xl w-8 h-5 bg-sky-400 hover:bg-blue-700 text-white p-[1.5px] text-xs"
+            className="flex items-center justify-center text-center rounded-full w-10 h-7 bg-sky-400 hover:bg-blue-700 text-white p-[1.5px] text-xs"
             onClick={handleRenamingFS}
           >
             完了
@@ -111,7 +109,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
           <div
             tabIndex={0}
             onBlur={handleBlur}
-            className="relative w-[20px] text-sm"
+            className="relative w-10 text-sm"
           >
             <div
               onClick={() => setIsOpen(!isOpen)}
@@ -122,7 +120,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
               <span className="w-1 h-1 my-auto bg-gray-600 rounded-full"></span>
             </div>
             {isOpen && (
-              <div className="flex z-10 flex-col origin-top-right absolute right-0 w-[80px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+              <div className="absolute flex z-10 flex-col origin-top-right right-0 w-[80px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <button
                   onClick={() => setSorting(true)}
                   className="text-sm text-gray-700 hover:bg-slate-300 hover:text-sky-600 border-b"

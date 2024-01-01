@@ -59,7 +59,7 @@ const FS: FC<{ sorting: boolean }> = ({ sorting }) => {
                   <TrickElem
                     id={trick.id}
                     name={trick.trick}
-                    index={trick.index}
+                    index={index}
                     sorting={sorting}
                   />
                   {index !== selectedFS.length - 1 && (
@@ -80,7 +80,7 @@ const FS: FC<{ sorting: boolean }> = ({ sorting }) => {
                 <TrickElem
                   id={trick.id}
                   name={trick.trick}
-                  index={trick.index}
+                  index={index}
                   sorting={sorting}
                 />
                 {index !== selectedFS.length - 1 && (
