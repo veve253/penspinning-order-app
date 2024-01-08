@@ -37,8 +37,10 @@ const FSMenu: FC<{
   }, [FSs]);
 
   useEffect(() => {
+    console.log("targetFS changed");
+
     readFS(targetFS?.id);
-  }, [targetFS]);
+  }, [targetFS?.id]);
 
   let blurTimeoutId: number | null = null;
 

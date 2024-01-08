@@ -1,12 +1,19 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useFSContext } from "../contexts/FSContexts";
+import { FSType } from "../types/FSType";
 
 const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   sorting,
   setSorting,
 }) => {
-  const { targetFS, handleSetTargetFS, renameFS, FSs, updateTrickIndex } =
-    useFSContext();
+  const {
+    targetFS,
+    handleSetTargetFS,
+    renameFS,
+    FSs,
+    setFSs,
+    updateTrickIndex,
+  } = useFSContext();
   const [FSName, setFSName] = useState(targetFS?.name);
 
   useEffect(() => {
@@ -16,6 +23,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   // FSMenuから名前が変更されたときに、それを反映
   useEffect(() => {
     handleSetTargetFS(targetFS?.id);
+    console.log("rename");
   }, [FSs]);
 
   const [clicked, setClicked] = useState(false);
@@ -39,13 +47,38 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
     };
   }, []);
 
+  useEffect(() => {
+    // コンポーネントがマウントされたらinput要素にフォーカスを当てる
+    inputFSRef.current?.focus();
+  }, [renaming]);
+
   const handleSetFSName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFSName(event.target.value);
   };
 
   const handleRenamingFS = () => {
     if (inputFSRef.current) {
-      renameFS(targetFS?.id, inputFSRef.current.value);
+      const newFSName = inputFSRef.current.value
+        ? inputFSRef.current.value
+        : "無題";
+      // タイトルの変更(h2)
+      setFSName(newFSName);
+      // タイトルの変更(menu)
+      setFSs((prev: FSType[]) => {
+        const newFS = prev.map((fs: FSType) => {
+          if (fs.id === targetFS?.id) {
+            return { ...fs, name: newFSName };
+          } else {
+            return fs;
+          }
+        });
+        return newFS;
+      });
+      setFSs;
+      renameFS(
+        targetFS?.id,
+        inputFSRef.current.value ? inputFSRef.current.value : "無題"
+      );
       setRenaming(false);
     }
   };

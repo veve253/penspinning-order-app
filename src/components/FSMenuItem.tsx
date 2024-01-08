@@ -13,6 +13,12 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
   const [renaming, setRenaming] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    // FSTitleでのリネームを反映
+    setFSName(FS.name);
+    console.log("rename menu");
+  }, [FS]);
+
   let blurTimeoutId: number | null = null;
   let delTimeoutId: number | null = null;
 
