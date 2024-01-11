@@ -3,6 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useFSContext } from "../contexts/FSContexts";
 import { Trick } from "../types/trickType";
+import { useAuthContext } from "../contexts/AuthContexts";
 
 const TrickElem: FC<{
   id: string;
@@ -15,6 +16,8 @@ const TrickElem: FC<{
 
   const { deleteTrick, selectedFS, setSelectedFS, renameTrick } =
     useFSContext();
+
+  const { user } = useAuthContext();
 
   const [clicked, setClicked] = useState(false);
 
@@ -49,11 +52,20 @@ const TrickElem: FC<{
 
   // trickの変更をバックエンドに反映
   const applyUpdatingTrick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    renameTrick(id, event.target.value);
+    if (user) {
+      renameTrick(id, event.target.value);
+    }
   };
 
   const handleDeleteTrick = () => {
-    deleteTrick(id);
+    if (user) {
+      deleteTrick(id);
+    } else {
+      setSelectedFS((fs: Trick[]) => {
+        const newFS = fs.filter((trick: Trick) => trick.id !== id);
+        return newFS;
+      });
+    }
   };
 
   return (
@@ -62,6 +74,7 @@ const TrickElem: FC<{
       className="flex justify-between border mx-auto text-sm md:text-base w-full min-h-[28px] md:min-h-[35px] rounded-xl"
     >
       {sorting ? (
+        // D&Dのつまみ
         <div
           ref={setNodeRef}
           {...attributes}
@@ -82,16 +95,19 @@ const TrickElem: FC<{
           </div>
         </div>
       ) : (
+        // 通常の番号
         <div className="w-6 my-auto h-full flex items-center justify-center">
           {index + 1}
         </div>
       )}
+      {/* Trick名 */}
       <div
         onClick={handleOnClick}
         onBlur={handleOnBlur}
         className="py-auto pl-4 flex items-center min-h-[28px] w-full border-l break-words break-all"
       >
         {clicked && !sorting ? (
+          // 編集中のinput
           <span className="my-auto flex w-full">
             <input
               type="text"
@@ -107,6 +123,7 @@ const TrickElem: FC<{
         )}
       </div>
       {sorting || (
+        // 削除ボタン
         <button
           onClick={handleDeleteTrick}
           className="w-8 p-[1px] my-auto mr-[1.5px] h-full text-xs flex items-center justify-center hover:bg-gray-200 rounded-full"

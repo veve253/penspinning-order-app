@@ -1,5 +1,8 @@
 import React, { useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useFSContext } from "../contexts/FSContexts";
+import { Trick } from "../types/trickType";
+import { useAuthContext } from "../contexts/AuthContexts";
 
 const TrickForm: React.FC<{
   // addTrick: (trick: string) => void
@@ -9,7 +12,8 @@ const TrickForm: React.FC<{
   }
 ) => {
   const trickRef = useRef<HTMLInputElement>(null);
-  const { addTrick } = useFSContext();
+  const { addTrick, selectedFS, setSelectedFS } = useFSContext();
+  const { user } = useAuthContext();
 
   const handleAddTrick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,7 +24,20 @@ const TrickForm: React.FC<{
       } else if (trick.length > 50) {
         alert("文字数が超過しています");
       } else {
-        addTrick(trick);
+        if (user) {
+          addTrick(trick);
+        } else {
+          setSelectedFS((fs: Trick[]) => {
+            const newTrick = {
+              id: uuidv4(),
+              trick: trick,
+              index: selectedFS[0]
+                ? selectedFS[selectedFS.length - 1].index + 1
+                : 0,
+            };
+            return [...fs, newTrick];
+          });
+        }
         trickRef.current.value = ""; // フォームをクリア
       }
     }

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useFSContext } from "../contexts/FSContexts";
 import { FSType } from "../types/FSType";
+import { useAuthContext } from "../contexts/AuthContexts";
 
 const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   sorting,
@@ -14,6 +15,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
     setFSs,
     updateTrickIndex,
   } = useFSContext();
+  const { user } = useAuthContext();
   const [FSName, setFSName] = useState(targetFS?.name);
 
   useEffect(() => {
@@ -57,30 +59,31 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   };
 
   const handleRenamingFS = () => {
-    if (inputFSRef.current) {
-      const newFSName = inputFSRef.current.value
-        ? inputFSRef.current.value
-        : "無題";
-      // タイトルの変更(h2)
-      setFSName(newFSName);
-      // タイトルの変更(menu)
-      setFSs((prev: FSType[]) => {
-        const newFS = prev.map((fs: FSType) => {
-          if (fs.id === targetFS?.id) {
-            return { ...fs, name: newFSName };
-          } else {
-            return fs;
-          }
+    if (user) {
+      if (inputFSRef.current) {
+        const newFSName = inputFSRef.current.value
+          ? inputFSRef.current.value
+          : "無題";
+        // タイトルの変更(h2)
+        setFSName(newFSName);
+        // タイトルの変更(menu)
+        setFSs((prev: FSType[]) => {
+          const newFS = prev.map((fs: FSType) => {
+            if (fs.id === targetFS?.id) {
+              return { ...fs, name: newFSName };
+            } else {
+              return fs;
+            }
+          });
+          return newFS;
         });
-        return newFS;
-      });
-      setFSs;
-      renameFS(
-        targetFS?.id,
-        inputFSRef.current.value ? inputFSRef.current.value : "無題"
-      );
-      setRenaming(false);
+        renameFS(
+          targetFS?.id,
+          inputFSRef.current.value ? inputFSRef.current.value : "無題"
+        );
+      }
     }
+    setRenaming(false);
   };
 
   const handleSortingFS = async () => {
@@ -119,7 +122,7 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
           ) : targetFS ? (
             targetFS.name
           ) : (
-            "無題のコンボ"
+            "コンボ"
           )}
         </h2>
 

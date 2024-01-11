@@ -1,11 +1,15 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useFSContext } from "../contexts/FSContexts";
+import { useAuthContext } from "../contexts/AuthContexts";
+import { Trick } from "../types/trickType";
 
 const TrickFormBottom: React.FC<{
   setClicked: Dispatch<SetStateAction<boolean>>;
 }> = ({ setClicked }) => {
   const trickRef = useRef<HTMLInputElement>(null);
-  const { addTrick } = useFSContext();
+  const { addTrick, selectedFS, setSelectedFS } = useFSContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     // コンポーネントがマウントされたらinput要素にフォーカスを当てる
@@ -35,7 +39,20 @@ const TrickFormBottom: React.FC<{
       } else if (trick.length > 50) {
         alert("文字数が超過しています");
       } else {
-        addTrick(trick);
+        if (user) {
+          addTrick(trick);
+        } else {
+          setSelectedFS((fs: Trick[]) => {
+            const newTrick = {
+              id: uuidv4(),
+              trick: trick,
+              index: selectedFS[0]
+                ? selectedFS[selectedFS.length - 1].index + 1
+                : 0,
+            };
+            return [...fs, newTrick];
+          });
+        }
         setClicked(false);
         trickRef.current.value = ""; // フォームをクリア
       }
