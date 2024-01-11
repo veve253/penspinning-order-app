@@ -84,11 +84,15 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
       }
     }
     setRenaming(false);
+    // スマホだと、ミートボールメニューが開いたままになるので、閉じる
+    setIsOpen(false);
   };
 
   const handleSortingFS = async () => {
     await updateTrickIndex();
     setSorting(false);
+    // スマホだと、ミートボールメニューが開いたままになるので、閉じる
+    setIsOpen(false);
   };
 
   // const applyNewFSName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -159,14 +163,14 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
               <div className="absolute flex z-10 flex-col origin-top-right right-0 w-[80px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <button
                   onClick={() => setSorting(true)}
-                  className="text-sm text-gray-700 hover:bg-slate-300 hover:text-sky-600 border-b"
+                  className="text-sm py-[2px] text-gray-700 hover:bg-slate-300 hover:text-sky-600 border-b"
                 >
                   並び替え
                 </button>
 
                 <button
                   onClick={() => setRenaming(true)}
-                  className="text-sm hover:bg-slate-300 text-gray-700"
+                  className="text-sm py-[2px] hover:bg-slate-300 text-gray-700"
                 >
                   名前変更
                 </button>

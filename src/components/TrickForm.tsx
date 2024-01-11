@@ -4,13 +4,7 @@ import { useFSContext } from "../contexts/FSContexts";
 import { Trick } from "../types/trickType";
 import { useAuthContext } from "../contexts/AuthContexts";
 
-const TrickForm: React.FC<{
-  // addTrick: (trick: string) => void
-}> = (
-  {
-    // addTrick,
-  }
-) => {
+const TrickForm = () => {
   const trickRef = useRef<HTMLInputElement>(null);
   const { addTrick, selectedFS, setSelectedFS } = useFSContext();
   const { user } = useAuthContext();

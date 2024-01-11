@@ -71,7 +71,7 @@ const TrickElem: FC<{
   return (
     <div
       style={style}
-      className="flex justify-between border mx-auto text-sm md:text-base w-full min-h-[28px] md:min-h-[35px] rounded-xl"
+      className="flex justify-between border mx-auto text-base md:text-base w-full min-h-[28px] md:min-h-[35px] rounded-xl"
     >
       {sorting ? (
         // D&Dのつまみ
@@ -104,7 +104,7 @@ const TrickElem: FC<{
       <div
         onClick={handleOnClick}
         onBlur={handleOnBlur}
-        className="py-auto pl-4 flex items-center min-h-[28px] w-full border-l break-words break-all"
+        className="py-auto pl-2 flex items-center min-h-[28px] w-full border-l break-words break-all"
       >
         {clicked && !sorting ? (
           // 編集中のinput

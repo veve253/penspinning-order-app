@@ -126,14 +126,14 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
               <div className="flex z-10 flex-col origin-top-right absolute right-0 w-[70px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                 <button
                   onClick={() => setRenaming(true)}
-                  className="text-sm text-gray-700 hover:bg-slate-300 hover:text-sky-600 border-b"
+                  className="text-sm py-[2px] text-gray-700 hover:bg-slate-300 hover:text-sky-600 border-b"
                 >
                   名前変更
                 </button>
 
                 <button
                   onClick={() => handleDeleteFS(FS.id)}
-                  className="text-sm hover:bg-slate-300 text-red-600"
+                  className="text-sm py-[2px] hover:bg-slate-300 text-red-600"
                 >
                   削除
                 </button>
