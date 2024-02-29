@@ -40,7 +40,6 @@ const FS: FC<{ sorting: boolean }> = ({ sorting }) => {
       });
     }
   };
-  console.log(selectedFS);
 
   return (
     <div className="mt-6">

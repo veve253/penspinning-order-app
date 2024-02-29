@@ -16,7 +16,6 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
   useEffect(() => {
     // FSTitleでのリネームを反映
     setFSName(FS.name);
-    console.log("rename menu");
   }, [FS]);
 
   let blurTimeoutId: number | null = null;
@@ -60,7 +59,6 @@ const FSMenuItem: FC<{ FS: FSType; toggleMenu: () => void }> = ({
 
   const applyRenamingFS = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("rename");
     await renameFS(FS.id, FSName);
     setRenaming(false);
   };

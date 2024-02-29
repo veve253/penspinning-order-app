@@ -25,7 +25,6 @@ const FSTitle: FC<{ sorting: boolean; setSorting: any }> = ({
   // FSMenuから名前が変更されたときに、それを反映
   useEffect(() => {
     handleSetTargetFS(targetFS?.id);
-    console.log("rename");
   }, [FSs]);
 
   const [clicked, setClicked] = useState(false);

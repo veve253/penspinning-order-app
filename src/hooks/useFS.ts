@@ -39,7 +39,6 @@ const useFS = () => {
           name: doc.data().name,
           index: doc.data().index,
         }));
-        console.log("onSnapshot");
 
         setFSs(newFS);
       });
@@ -61,7 +60,6 @@ const useFS = () => {
     } else if (!targetFS || isFirst) {
       setTargetFS(FSs[0]);
     }
-    console.log(targetFS);
   };
 
   // 特定のFSの読み込み
@@ -79,7 +77,6 @@ const useFS = () => {
         index: doc.data().index,
         trick: doc.data().trick,
       }));
-      console.log("snap");
 
       setSelectedFS(newFS);
     }

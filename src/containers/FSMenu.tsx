@@ -37,8 +37,6 @@ const FSMenu: FC<{
   }, [FSs]);
 
   useEffect(() => {
-    console.log("targetFS changed");
-
     readFS(targetFS?.id);
   }, [targetFS?.id]);
 
@@ -69,7 +67,6 @@ const FSMenu: FC<{
     e.preventDefault();
 
     await addFS(newFSName);
-    console.log("added");
     // handleSetTargetFS(undefined);
     setNewFSName("無題");
     setAdding(false);
