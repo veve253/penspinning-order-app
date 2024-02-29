@@ -19,6 +19,8 @@
 - 技は編集・削除が可能
 <img width="600" alt="スクリーンショット 2024-02-29 16 15 31" src="https://github.com/veve253/penspinning-order-app/assets/135543052/d17a6c15-e56d-4d4a-8fd4-c1faab831b1f">
 
+<img width="209" alt="スクリーンショット 2024-02-29 16 11 06" src="https://github.com/veve253/penspinning-order-app/assets/135543052/92d32318-7549-40a4-9d8a-7e1f4365d3a9">
+
 
 #### ドラッグ&ドロップによる技の並べ替え
 
