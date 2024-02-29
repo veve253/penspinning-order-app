@@ -25,6 +25,9 @@
 
 - ライブラリは dnd-kit を使用
 
+![D_D](https://github.com/veve253/penspinning-order-app/assets/135543052/79fe9f95-3b5a-43cc-b730-ca16b16d661b)
+
+
 ### ログイン時のみ使える機能
 
 #### 複数のコンボ・フリースタイルを記録
