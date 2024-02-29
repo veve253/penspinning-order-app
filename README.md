@@ -18,7 +18,7 @@
   (※非ログイン時は、データベースへの記録はされない)
 - 技は編集・削除が可能
 
-<img width="800" alt="スクリーンショット 2024-02-29 18 25 16" src="https://github.com/veve253/penspinning-order-app/assets/135543052/a533816d-58ce-47bf-8d93-8ea9fcb3b614">
+<img width="600" alt="スクリーンショット 2024-02-29 18 25 16" src="https://github.com/veve253/penspinning-order-app/assets/135543052/a533816d-58ce-47bf-8d93-8ea9fcb3b614">
 <img width="200" alt="スクリーンショット 2024-02-29 18 25 58" src="https://github.com/veve253/penspinning-order-app/assets/135543052/b189af7a-6b83-4156-a072-483c56fe704a">
 
 #### ドラッグ&ドロップによる技の並べ替え
@@ -32,7 +32,7 @@
 - 複数のコンボ・フリースタイルを登録することが可能になる
 - コンボ・コンボ名は編集、削除が可能
 
-<img width="800" alt="スクリーンショット 2024-02-29 16 15 31" src="https://github.com/veve253/penspinning-order-app/assets/135543052/d17a6c15-e56d-4d4a-8fd4-c1faab831b1f">
+<img width="600" alt="スクリーンショット 2024-02-29 16 15 31" src="https://github.com/veve253/penspinning-order-app/assets/135543052/d17a6c15-e56d-4d4a-8fd4-c1faab831b1f">
 
 <img width="200" alt="スクリーンショット 2024-02-29 18 18 57" src="https://github.com/veve253/penspinning-order-app/assets/135543052/c4815e65-30da-4d11-9c8c-ca7efec9101b">
 
