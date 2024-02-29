@@ -86,10 +86,10 @@ const FSMenu: FC<{
         {/* メニュー内容をここに入れる */}
         <div
           onClick={() => setAdding(true)}
-          className="flex mx-auto w-[40%] px-4 py-2 justify-center items-center border mt-2 rounded-lg cursor-pointer  hover:text-slate-500 "
+          className="flex mx-auto w-[40%] px-3 py-2 justify-center items-center border mt-2 rounded-lg cursor-pointer  hover:text-slate-500 "
         >
           <span className="pr-2">＋</span>
-          <h1>New FS</h1>
+          <h1>New Combo</h1>
         </div>
 
         <ul className="w-full mt-4 text-[16px]">
