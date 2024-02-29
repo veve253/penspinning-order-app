@@ -27,17 +27,15 @@
 
 ![D_D](https://github.com/veve253/penspinning-order-app/assets/135543052/79fe9f95-3b5a-43cc-b730-ca16b16d661b)
 
-
 ### ログイン時のみ使える機能
 
 #### 複数のコンボ・フリースタイルを記録
 
-- 複数のコンボ・フリースタイルを登録することが可能になる
+- 複数のコンボ・フリースタイルを記録することができる
 - コンボ・コンボ名は編集、削除が可能
 
-<img width="800" alt="スクリーンショット 2024-02-29 16 15 31" src="https://github.com/veve253/penspinning-order-app/assets/135543052/d17a6c15-e56d-4d4a-8fd4-c1faab831b1f">
-
-<img width="200" alt="スクリーンショット 2024-02-29 18 18 57" src="https://github.com/veve253/penspinning-order-app/assets/135543052/c4815e65-30da-4d11-9c8c-ca7efec9101b">
+<img width="800" alt="スクリーンショット 2024-02-29 20 29 09" src="https://github.com/veve253/penspinning-order-app/assets/135543052/f50f3959-e723-430a-aa0d-68c038c6eaec">
+<img width="200" alt="スクリーンショット 2024-02-29 20 30 29" src="https://github.com/veve253/penspinning-order-app/assets/135543052/75d7cd45-a306-462c-bd0d-0e53ea147e4e">
 
 ## 使用技術
 
