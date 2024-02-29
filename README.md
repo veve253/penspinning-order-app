@@ -18,9 +18,8 @@
   (※非ログイン時は、データベースへの記録はされない)
 - 技は編集・削除が可能
 
-
-<img width="209" alt="スクリーンショット 2024-02-29 16 11 06" src="https://github.com/veve253/penspinning-order-app/assets/135543052/92d32318-7549-40a4-9d8a-7e1f4365d3a9">
-
+<img width="600" alt="スクリーンショット 2024-02-29 18 25 16" src="https://github.com/veve253/penspinning-order-app/assets/135543052/a533816d-58ce-47bf-8d93-8ea9fcb3b614">
+<img width="200" alt="スクリーンショット 2024-02-29 18 25 58" src="https://github.com/veve253/penspinning-order-app/assets/135543052/b189af7a-6b83-4156-a072-483c56fe704a">
 
 #### ドラッグ&ドロップによる技の並べ替え
 
